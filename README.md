@@ -1,18 +1,57 @@
-<img src="https://github.com/xyz-prjkt/xyz_assets/raw/main/xCloudDroneCI_banner.png"/>
+# GCC Cross Compiler Toolchain Build Script
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45afc949404f440e9398bd2c8dadadff)](https://app.codacy.com/gh/xyz-prjkt/xCloudDroneCI?utm_source=github.com&utm_medium=referral&utm_content=xyz-prjkt/xCloudDroneCI&utm_campaign=Badge_Grade_Settings) [![Build Status](https://cloud.drone.io/api/badges/xyz-prjkt/xCloudDroneCI/status.svg?ref=refs/heads/ci_llvm-tc)](https://cloud.drone.io/xyz-prjkt/xCloudDroneCI)
+![ARM GCC+LLD Build](https://github.com/AnGgIt88/Gcc-compiler/workflows/ARM%20GCC+LLD%20Build/badge.svg) ![ARM64 GCC+LLD Build](https://github.com/AnGgIt88/Gcc-compiler/workflows/ARM64%20GCC+LLD%20Build/badge.svg) 
 
-xCloudDroneCI is a ci script which is integrated with cloud.drone.io which can simplify the compilation process which will save your time.
+This repository contains the script needed to compile bare metal GCC for various architectures using Linux distributions. The GCC source is fetched from the master branch hence, contains all the bleeding edge changes.
 
-## There are script available now:
-* [**LLVM Toolchain Compiler**](https://github.com/xyz-prjkt/xCloudDroneCI/tree/ci_llvm-tc)
-* [**xKernelCompiler**](https://github.com/xyz-prjkt/xCloudDroneCI/tree/ci_xkernel-compiler)
+## Before we start
 
-## Secret Variable for CI
-* LLVM_NAME | Your desired Toolchain Name
-* TG_TOKEN | Your Telegram Bot Token
-* TG_CHAT_ID | Your Telegram Channel / Group Chat ID
-* GH_USERNAME | Your Github Username
-* GH_EMAIL | Your Github Email
-* GH_TOKEN | Your Github Token ( repo & repo_hook )
-* GH_PUSH_REPO_URL | Your Repository for store compiled Toolchain ( without https:// or www. ) ex. github.com/xyz-prjkt/xRageTC.git
+**Below are the packages you'll need**
+
+* **Ubuntu or other Debian based distros**
+    >**Note: On Ubuntu 20.04, the default GCC version is gcc 9.3.x which (in my test cases) brought in a lot of unneeded regressions. This was however fixed by compiling the toolchain itself with GCC 10**
+
+    To install and set GCC 10 as the default compiler, you need to:
+
+    ```bash
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && sudo apt-get update
+    ```
+
+    ```bash
+    sudo apt-get install flex bison ncurses-dev texinfo gcc gperf patch libtool automake g++ libncurses5-dev gawk subversion expat libexpat1-dev python-all-dev binutils-dev bc libcap-dev autoconf libgmp-dev build-essential pkg-config libmpc-dev libmpfr-dev autopoint gettext txt2man liblzma-dev libssl-dev libz-dev mercurial wget tar gcc-10 g++-10 zstd --fix-broken --fix-missing
+    ```
+
+* **Arch Linux**
+
+    ```bash
+    sudo pacman -S base-devel clang cmake git libc++ lld lldb ninja
+    ```
+
+## Usage
+
+Running this script is quite simple. We start by cloning this repository:
+```bash
+git clone https://github.com/AnGgIt86/Gcc-compiler.git Gcc-compiler && cd Gcc-compiler
+```
+```bash
+./build-gcc.sh -a <architechture>
+```
+> As of now, I only support **arm**, **arm64** and **x86 (compiles for x86_64 only)**. This list is subject to change as I receive requests.
+
+> Keep in mind that this script contains just the bare minimum prerequisites.
+
+## Credits
+
+* [Vaisakh](https://github.com/mvaisakh/) for writing this script.
+* [OS Dev Wiki](https://wiki.osdev.org) for knowledge base.
+* [USBHost's Amazing GCC Build script](https://github.com/USBhost/build-tools-gcc) for certain prerequisite dependencies.
+
+## Looking for precompiled toolchains?
+
+My GCC Cross Compiler builds are automated and pushed biweekly i.e. on Sundays & Thursdays at 00:00 GMT+5:30 (IST). They are pushed to:
+* **[ARM64](https://github.com/AnGgIt86/arm64-gcc)**
+* **[ARM32](https://github.com/AnGgIt86/gcc-arm)**
+
+## Contributing to this repo
+
+You're more than welcome to improve the contents within this script with a pull request. Enjoy :)
