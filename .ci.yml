@@ -1,9 +1,6 @@
 kind: pipeline
 name : LLVM Toolchain Compiler
 version: rev1.5_template
-platform:
-  arch: amd64
-  os: linux
 steps:
  - name: LLVM-tc Compilation
   image: brock5555/recovery
