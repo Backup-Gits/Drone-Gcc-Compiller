@@ -1,9 +1,15 @@
+---
 kind: pipeline
-name : LLVM Toolchain Compiler
-version: rev1.5_template
+type: docker
+name: linux-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
 steps:
- - name: LLVM-tc Compilation
-   image: xyzuan/xdocker:latest
+- name: Start Compiling
+  image: brock5555/recovery
    environment:
      TG_TOKEN:
        from_secret: TELEGRAM_BOT_TOKEN
@@ -17,4 +23,4 @@ steps:
        from_secret: API_TOKEN_GITHUB
    commands:
      - bash llvm-tc_build.sh
-   no_output_timeout : 5h
+   timeout : 5h
