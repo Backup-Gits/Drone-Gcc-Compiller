@@ -3,7 +3,7 @@ name : LLVM Toolchain Compiler
 version: rev1.5_template
 steps:
  - name: LLVM-tc Compilation
-  image: brock5555/recovery
+   image: xyzuan/xdocker:latest
    environment:
      TG_TOKEN:
        from_secret: TELEGRAM_BOT_TOKEN
