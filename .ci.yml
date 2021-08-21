@@ -1,13 +1,11 @@
 kind: pipeline
-type: docker
-name: linux-amd64
-
+name : LLVM Toolchain Compiler
+version: rev1.5_template
 platform:
   arch: amd64
   os: linux
-
 steps:
-- name: Start Compiling
+ - name: LLVM-tc Compilation
   image: brock5555/recovery
    environment:
      TG_TOKEN:
